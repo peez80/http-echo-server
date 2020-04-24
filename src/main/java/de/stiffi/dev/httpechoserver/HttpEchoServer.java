@@ -19,12 +19,14 @@ public class HttpEchoServer {
         while (running) {
             Socket socket = server.accept();
 
+
             int read;
             byte[] buffer = new byte[8192];
 
             try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8")); PrintWriter out = new PrintWriter(socket.getOutputStream(), true);) {
                 String date = SimpleDateFormat.getDateTimeInstance().format(new Date());
-                System.out.println(date + " - Received Connection");
+                System.out.println(date + " - Received Connection from " + socket.getRemoteSocketAddress());
+                System.out.println("---");
                 String line;
                 while ((line = in.readLine()) != null) {
                     if (line.trim().isEmpty()) {
